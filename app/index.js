@@ -1,11 +1,7 @@
-//Entry point for the application.  
-// Requires our component and renders it through DOM
+require('./main.css'); 
+var component = require('./component');
+var app = document.createElement('div');
 
+document.body.appendChild(app);
 
-var component = require('./component'); 
-var app = document.createElement('div'); 
-
-document.body.appendChild(app); 
-
-app.appendChild(component()); 
-
+app.appendChild(component());
