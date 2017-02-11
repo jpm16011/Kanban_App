@@ -24,10 +24,18 @@ const merge = require('webpack-merge');
 const webpack = require('webpack'); 
 const TARGET = process.env.npm_lifecycle_event;
 const NpmInstallPlugin = require('npm-install-webpack-plugin'); 
+process.env.BABEL_ENV = TARGET; 
+
+
 
 const common = {
 	entry: { 
 		app: PATHS.app
+	}, 
+	// Add resolve.extensions.
+	// '' is needed to allow imports without an extension 
+	resolve: {
+		extensions:['', '.js', '.jsx']
 	}, 
 	output: { 
 		path: PATHS.build, 
@@ -39,6 +47,17 @@ const common = {
 			{
 				test: /\.css$/, 
 				loaders: ['style', 'css'], 
+				include: PATHS.app
+			}, 
+			
+			{
+				test: /\.jsx?$/, 
+				// Enable caching for improved performance during development 
+				// It uses default OS directory by default  If you need something more custom 
+				// pass a path to it.  I.e., babel?cacheDirectory=<path>
+				loaders: ['babel?cacheDirectory'], 
+				// Parse only app files! Without this it will go through the entire project.  
+				// In addition to being slow, that will most likely result in an error. 
 				include: PATHS.app
 			}
 		]
