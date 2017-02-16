@@ -60,7 +60,7 @@ const common = {
 				// In addition to being slow, that will most likely result in an error. 
 				include: PATHS.app
 			}
-		]
+		]  
 	}
 };  
 	
